@@ -13,17 +13,17 @@ pipeline {
         string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: 'Environment to deploy (dev/staging/prod)')
     }
 
-    // Tools to use
+    // Tools to use (must match names in Jenkins Global Tool Configuration)
     tools {
-        maven 'Maven 3.9.4'  // Name must match the Maven tool in Jenkins configuration
-        jdk 'JDK 17'          // Name must match the JDK tool in Jenkins
+        maven 'Maven 3.9.4'   // Example: name of Maven configured in Jenkins
+        jdk 'JDK 17'          // Example: name of JDK configured in Jenkins
     }
 
     stages {
         stage('Build') {
             steps {
                 echo "Building ${APP_NAME}..."
-                sh 'mvn clean install'  // On Windows use: bat 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
@@ -33,16 +33,14 @@ pipeline {
             }
             steps {
                 echo 'Running tests...'
-                sh 'mvn test'  // On Windows: bat 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo "Deploying ${APP_NAME} to ${params.DEPLOY_ENV} environment..."
-                // Example deploy command:
-                sh "cp ${BUILD_DIR}/*.jar /tmp/${APP_NAME}-${params.DEPLOY_ENV}.jar"
-                // On Windows: bat "copy ${BUILD_DIR}\\*.jar C:\\Temp\\${APP_NAME}-${params.DEPLOY_ENV}.jar"
+                bat "copy %BUILD_DIR%\\*.jar C:\\Temp\\${APP_NAME}-${params.DEPLOY_ENV}.jar"
             }
         }
     }
