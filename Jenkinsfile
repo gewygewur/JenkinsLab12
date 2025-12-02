@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Building ${APP_NAME}..."
+                echo "Building the hehe ${APP_NAME}..."
                 bat 'mvn clean install'
             }
         }
