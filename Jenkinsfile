@@ -39,7 +39,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Deploying ${APP_NAME} to ${params.DEPLOY_ENV} environment..."
+                echo "Deploying the hello world ${APP_NAME} to ${params.DEPLOY_ENV} environment..."
                 bat "copy %BUILD_DIR%\\*.jar C:\\Temp\\${APP_NAME}-${params.DEPLOY_ENV}.jar"
             }
         }
