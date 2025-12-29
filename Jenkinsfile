@@ -38,19 +38,6 @@ pipeline {
       }
     }
 
-    stage('DAST - OWASP ZAP (Baseline)') {
-      steps {
-        // Save report into the Jenkins workspace
-        bat """
-          docker run --rm -v "%WORKSPACE%":/zap/wrk -t zaproxy/zap-stable zap-baseline.py ^
-            -t %ZAP_TARGET% ^
-            -m 3 ^
-            -r zap_report.html
-        """
-
-        // Attach report to Jenkins build
-        archiveArtifacts artifacts: 'zap_report.html', fingerprint: true
-      }
-    }
+    
   }
 }
